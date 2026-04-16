@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🔬 NLP Pipeline — Satellite & Navigation Intelligence Hub</title>
+<meta name="description" content="Detailed NLP pipeline breakdown for the Satellite & Navigation Intelligence Hub dashboard.">
+<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<canvas id="starfield"></canvas>
+
+<nav class="tab-nav">
+  <a href="index.html" class="tab-link" id="tab-dashboard">🛰️ Dashboard</a>
+  <a href="pipeline.html" class="tab-link active" id="tab-pipeline">🔬 Pipeline</a>
+</nav>
+
+<div class="page-wrap">
+
+  <!-- ── HEADER ── -->
+  <header style="padding-bottom:24px;">
+    <div class="header-badge">NLP Pipeline · 5 Steps · Data → Insights</div>
+    <h1>Analysis<br>Pipeline</h1>
+    <p class="subtitle">Mission Profile Generation · Sentiment · Capability Scoring · Clustering</p>
+  </header>
+
+  <!-- ── PIPELINE OVERVIEW ── -->
+  <div class="section-header">
+    <div class="section-line"></div>
+    <div class="section-title">🔄 Pipeline Architecture</div>
+    <div class="section-line right"></div>
+  </div>
+
+  <div class="chart-panel" style="margin-bottom:24px;">
+    <div style="font-family:'Space Mono',monospace;font-size:11px;color:#7aa3cc;line-height:2;padding:8px 0;">
+      <code style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);border-radius:4px;padding:2px 8px;color:#00d4ff;">satellites_data.csv</code>
+      &nbsp;→&nbsp;
+      <code style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);border-radius:4px;padding:2px 8px;color:#00d4ff;">data_cleaner.py</code>
+      &nbsp;→&nbsp;
+      <code style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);border-radius:4px;padding:2px 8px;color:#00d4ff;">text_generator.py</code>
+      &nbsp;→&nbsp;
+      <code style="background:rgba(0,212,255,0.08);border:1px solid rgba(0,212,255,0.2);border-radius:4px;padding:2px 8px;color:#00d4ff;">nlp_pipeline.py</code>
+      &nbsp;→&nbsp;
+      <code style="background:rgba(255,215,0,0.1);border:1px solid rgba(255,215,0,0.3);border-radius:4px;padding:2px 8px;color:#ffd700;">satellite_data.json</code>
+      &nbsp;→&nbsp;
+      <code style="background:rgba(57,255,20,0.08);border:1px solid rgba(57,255,20,0.2);border-radius:4px;padding:2px 8px;color:#39ff14;">Dashboard</code>
+    </div>
+    <div class="insight-box" style="margin-top:14px;">
+      The pipeline is fully <strong>self-contained</strong> — if no CSV is present, it generates 2,050 realistic synthetic 
+      satellite records based on the UCS Satellite Database schema, ensuring the dashboard always renders 
+      with meaningful orbital intelligence data.
+    </div>
+  </div>
+
+  <!-- ── STEPS ── -->
+  <div class="section-header">
+    <div class="section-line"></div>
+    <div class="section-title">📋 Pipeline Steps</div>
+    <div class="section-line right"></div>
+  </div>
+
+  <div class="pipeline-grid">
+
+    <!-- Step 1 -->
+    <div class="pipeline-step">
+      <div class="step-number">01</div>
+      <div class="step-title">⚙️ Data Loading &amp; Cleaning</div>
+      <div class="step-body">
+        <code>data_cleaner.py</code> loads the UCS Satellite Database CSV.
+        If the file is missing, it generates 2,050 synthetic rows with realistic 
+        orbital parameters (perigee, apogee, inclination, period) computed from
+        Keplerian orbital mechanics. Missing numeric values are filled using 
+        per-orbit-class medians, ensuring no NaNs propagate downstream.
+        <br><br>
+        Produces 5 EDA plots saved to <code>outputs/eda/</code>.
+      </div>
+      <div class="step-tags">
+        <span class="step-tag">pandas</span>
+        <span class="step-tag">matplotlib</span>
+        <span class="step-tag">Orbit Physics</span>
+        <span class="step-tag">EDA Plots</span>
+      </div>
+    </div>
+
+    <!-- Step 2 -->
+    <div class="pipeline-step">
+      <div class="step-number">02</div>
+      <div class="step-title">✍️ Mission Profile Generation</div>
+      <div class="step-body">
+        <code>text_generator.py</code> converts each satellite row into a rich,
+        human-readable mission profile using a deterministic template engine.
+        Classification helpers translate numeric fields into descriptive language —
+        orbit class, mass category, lifetime tier, purpose verb, and user context
+        are all computed rule-based, requiring no LLM.
+        <br><br>
+        Navigation-relevant satellites receive additional context about GNSS 
+        contribution and augmentation system support.
+      </div>
+      <div class="step-tags">
+        <span class="step-tag">Template Engine</span>
+        <span class="step-tag">Rule-Based NLG</span>
+        <span class="step-tag">2,050 Profiles</span>
+        <span class="step-tag">GNSS Context</span>
+      </div>
+    </div>
+
+    <!-- Step 3 -->
+    <div class="pipeline-step">
+      <div class="step-number">03</div>
+      <div class="step-title">💬 VADER Sentiment Scoring</div>
+      <div class="step-body">
+        A lightweight VADER-style lexicon scores each mission profile.
+        Positive signals include: <em>precise, reliable, accurate, navigation, 
+        next-generation, centimetre-level</em>. Negative signals include:
+        <em>surveillance, reconnaissance, military, elliptical, expired</em>.
+        <br><br>
+        Compound scores are normalised to [-1, +1] and labelled as
+        <strong style="color:#00d4ff">Positive</strong> (&gt;0.05), 
+        <strong style="color:#ffd700">Neutral</strong>, or 
+        <strong style="color:#ff3366">Negative</strong> (&lt;−0.05).
+      </div>
+      <div class="step-tags">
+        <span class="step-tag">VADER Lexicon</span>
+        <span class="step-tag">Compound Score</span>
+        <span class="step-tag">3-Class Label</span>
+        <span class="step-tag">No External API</span>
+      </div>
+    </div>
+
+    <!-- Step 4 -->
+    <div class="pipeline-step">
+      <div class="step-number">04</div>
+      <div class="step-title">⭐ Capability Tier Scoring</div>
+      <div class="step-body">
+        A 12-point rubric scores each satellite's strategic importance.
+        Points are awarded for orbit class (GEO = 4, MEO = 3, LEO = 1),
+        mission purpose criticality (Navigation = +3, Communications = +2),
+        launch mass, and expected lifetime.
+        <br><br>
+        Tiers: 
+        <strong style="color:#ffd700">Strategic</strong> (9–12 pts), 
+        <strong style="color:#00d4ff">Operational</strong> (6–8 pts),
+        <strong style="color:#39ff14">Support</strong> (3–5 pts),
+        <strong style="color:#8b5cf6">Experimental</strong> (0–2 pts).
+      </div>
+      <div class="step-tags">
+        <span class="step-tag">12-Point Rubric</span>
+        <span class="step-tag">4 Capability Tiers</span>
+        <span class="step-tag">Orbit + Purpose + Mass</span>
+        <span class="step-tag">Rule-Based</span>
+      </div>
+    </div>
+
+    <!-- Step 5 -->
+    <div class="pipeline-step">
+      <div class="step-number">05</div>
+      <div class="step-title">🔮 TF-IDF + K-Means Clustering</div>
+      <div class="step-body">
+        Mission profiles are vectorised using TF-IDF (600 features, English stopwords 
+        removed) and clustered into 6 mission archetypes using K-Means.
+        <br><br>
+        Archetypes: <em>LEO Earth Watchers, GEO Comms Backbone, 
+        Navigation Constellation, Military &amp; Surveillance, 
+        Scientific Explorers, Technology Demonstrators</em>.
+        <br><br>
+        sklearn gracefully degrades to "unclustered" if not installed.
+      </div>
+      <div class="step-tags">
+        <span class="step-tag">TF-IDF Vectorizer</span>
+        <span class="step-tag">K-Means (k=6)</span>
+        <span class="step-tag">6 Archetypes</span>
+        <span class="step-tag">sklearn</span>
+      </div>
+    </div>
+
+    <!-- Step 6 -->
+    <div class="pipeline-step">
+      <div class="step-number">06</div>
+      <div class="step-title">📊 Dashboard JSON Export</div>
+      <div class="step-body">
+        The final step aggregates all computed metrics into
+        <code>outputs/satellite_data.json</code>:
+        <br><br>
+        • Sentiment by orbit class (avg)<br>
+        • Purpose, orbit, capability, user distributions<br>
+        • Launch year trend (1990–2025)<br>
+        • Top 10 operators by fleet size<br>
+        • Top 10 highest-scored missions<br>
+        • Word frequencies (positive/negative)<br>
+        • Scatter plot sample (350 satellites)<br>
+        • Full search index (all 2,050 satellites)
+      </div>
+      <div class="step-tags">
+        <span class="step-tag">JSON Aggregation</span>
+        <span class="step-tag">Search Index</span>
+        <span class="step-tag">Word Frequency</span>
+        <span class="step-tag">Dashboard Ready</span>
+      </div>
+    </div>
+
+  </div><!-- end pipeline-grid -->
+
+  <!-- ── EDA PLOTS ── -->
+  <div class="section-header">
+    <div class="section-line"></div>
+    <div class="section-title">📸 EDA Visualisations</div>
+    <div class="section-line right"></div>
+  </div>
+
+  <div class="chart-panel" style="margin-bottom:22px;">
+    <div class="insight-box" style="margin-top:0">
+      Run <strong><code>python data_cleaner.py</code></strong> to generate EDA plots in <code>outputs/eda/</code>.
+      They will appear below automatically once available.
+    </div>
+  </div>
+
+  <div class="eda-grid">
+    <div class="eda-panel">
+      <div class="chart-title"><span>🌐</span> Orbit Class Distribution</div>
+      <img src="outputs/eda/01_orbit_types.png" alt="Orbit class distribution" onerror="this.style.display='none'">
+    </div>
+    <div class="eda-panel">
+      <div class="chart-title"><span>📈</span> Launch Year Trend</div>
+      <img src="outputs/eda/02_launch_year_trend.png" alt="Launch year trend" onerror="this.style.display='none'">
+    </div>
+    <div class="eda-panel">
+      <div class="chart-title"><span>⚖️</span> Mass vs Altitude Scatter</div>
+      <img src="outputs/eda/03_mass_vs_altitude.png" alt="Mass vs altitude" onerror="this.style.display='none'">
+    </div>
+    <div class="eda-panel">
+      <div class="chart-title"><span>🏆</span> Top Operators</div>
+      <img src="outputs/eda/04_top_operators.png" alt="Top operators" onerror="this.style.display='none'">
+    </div>
+    <div class="eda-panel" style="grid-column: 1 / -1;">
+      <div class="chart-title"><span>🎯</span> Purpose Distribution</div>
+      <img src="outputs/eda/05_purpose_distribution.png" alt="Purpose distribution" onerror="this.style.display='none'">
+    </div>
+  </div>
+
+  <!-- ── DATASET INFO ── -->
+  <div class="section-header">
+    <div class="section-line"></div>
+    <div class="section-title">📁 Dataset Information</div>
+    <div class="section-line right"></div>
+  </div>
+
+  <div class="chart-panel" style="margin-bottom:22px;">
+    <div class="chart-title"><span>🗃️</span> UCS Satellite Database — Field Reference</div>
+    <div style="overflow-x:auto;">
+      <table style="width:100%;border-collapse:collapse;font-family:'Space Mono',monospace;font-size:11px;color:#7aa3cc;">
+        <thead>
+          <tr style="border-bottom:1px solid rgba(0,212,255,0.2);">
+            <th style="text-align:left;padding:10px 14px;color:#00d4ff;letter-spacing:1px">Field</th>
+            <th style="text-align:left;padding:10px 14px;color:#00d4ff;letter-spacing:1px">Type</th>
+            <th style="text-align:left;padding:10px 14px;color:#00d4ff;letter-spacing:1px">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          ${[
+            ["name", "string", "Official satellite designation"],
+            ["country", "string", "Country of operator/owner"],
+            ["operator", "string", "Operating agency or company"],
+            ["users", "string", "Civil / Commercial / Military / Government"],
+            ["purpose", "string", "Primary mission type"],
+            ["orbit_class", "string", "LEO / MEO / GEO / HEO / Elliptical"],
+            ["orbit_type", "string", "Sun-Synchronous, Polar, Geostationary, etc."],
+            ["perigee_km", "float", "Closest orbital point (km)"],
+            ["apogee_km", "float", "Farthest orbital point (km)"],
+            ["eccentricity", "float", "Orbital eccentricity (0 = circular)"],
+            ["inclination_deg", "float", "Orbital inclination (degrees)"],
+            ["period_min", "float", "Orbital period (minutes)"],
+            ["launch_mass_kg", "float", "Mass at launch (kg)"],
+            ["expected_lifetime_yrs", "float", "Design lifetime (years)"],
+            ["date_of_launch", "date", "ISO 8601 launch date"],
+            ["launch_vehicle", "string", "Rocket used for launch"],
+            ["launch_site", "string", "Launch facility name and country"],
+          ].map(([f,t,d]) =>
+            `<tr style="border-bottom:1px solid rgba(0,212,255,0.05);">
+               <td style="padding:9px 14px;color:#00d4ff">${f}</td>
+               <td style="padding:9px 14px;color:#8b5cf6">${t}</td>
+               <td style="padding:9px 14px">${d}</td>
+             </tr>`
+          ).join("")}
+        </tbody>
+      </table>
+    </div>
+    <div class="insight-box">
+      <strong>Source:</strong> Union of Concerned Scientists (UCS) Satellite Database —
+      <a href="https://www.ucsusa.org/resources/satellite-database" target="_blank"
+         style="color:#00d4ff;text-decoration:none">ucsusa.org/resources/satellite-database</a><br>
+      Replace <code>satellites_data.csv</code> with the latest UCS export for live data.
+    </div>
+  </div>
+
+</div><!-- end .page-wrap -->
+
+<footer>
+  UCS SATELLITE DATABASE · NLP: TEXT GENERATION + VADER SENTIMENT + CAPABILITY SCORING + TF-IDF CLUSTERING · CHART.JS
+</footer>
+
+<script>
+/* Mini starfield for pipeline page */
+(function() {
+  const canvas = document.getElementById("starfield");
+  const ctx    = canvas.getContext("2d");
+  let W, H, stars = [];
+  function resize() {
+    W = canvas.width  = window.innerWidth;
+    H = canvas.height = window.innerHeight;
+    stars = Array.from({ length: 200 }, () => ({
+      x: Math.random() * W, y: Math.random() * H,
+      r: Math.random() * 1.2 + 0.3,
+      a: Math.random(), da: (Math.random() - 0.5) * 0.003,
+    }));
+  }
+  function draw() {
+    ctx.clearRect(0, 0, W, H);
+    stars.forEach(s => {
+      s.a = Math.max(0.05, Math.min(1, s.a + s.da));
+      if (s.a <= 0.05 || s.a >= 1) s.da *= -1;
+      ctx.beginPath();
+      ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+      ctx.fillStyle = `rgba(180,210,255,${s.a * 0.45})`;
+      ctx.fill();
+    });
+    requestAnimationFrame(draw);
+  }
+  window.addEventListener("resize", resize);
+  resize(); draw();
+})();
+</script>
+</body>
+</html>
