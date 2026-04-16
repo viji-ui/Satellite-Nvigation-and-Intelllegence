@@ -1,4 +1,4 @@
-[README.md](https://github.com/user-attachments/files/26770914/README.md)
+[README.md](https://github.com/viji-ui/Satellite-Nvigation-and-Intelllegence/edit/main/README.md)
 # 🛰️ Satellite & Navigation Intelligence Hub
 
 > Convert 2,000+ real satellite records from UCS & TLE datasets into rich natural-language  
